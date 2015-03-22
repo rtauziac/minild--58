@@ -1,0 +1,37 @@
+class BallBehavior extends Sup.Behavior {
+  
+  velocity = new Sup.Math.Vector3(-0.03, 0.03, 0);
+  
+  awake() {
+    
+  }
+  update() {
+    this.actor.move(this.velocity);
+    
+    var currentPosition = this.actor.getPosition();
+    var terrainSize = new Sup.Math.Vector3(5, 2, 0);
+    if (currentPosition.y < -(terrainSize.y/2)) {
+      this.velocity.y = -this.velocity.y;
+      currentPosition.y += currentPosition.y + (terrainSize.y/2);
+    }
+    if (currentPosition.y > (terrainSize.y/2)) {
+      this.velocity.y = -this.velocity.y;
+      currentPosition.y -= currentPosition.y - (terrainSize.y/2);
+    }
+    if (currentPosition.x < -(terrainSize.x/2)) {
+      this.reset();
+      // this.velocity.x = -this.velocity.x;
+      // currentPosition.x += currentPosition.x + (terrainSize.x/2);
+    }
+    if (currentPosition.x > (terrainSize.x/2)) {
+      this.reset();
+      // this.velocity.x = -this.velocity.x;
+      // currentPosition.x -= currentPosition.x - (terrainSize.x/2);
+    }
+  }
+
+  reset() {
+    this.actor.setPosition(new Sup.Math.Vector3(0, 0, 0));
+  }
+}
+Sup.registerBehavior(BallBehavior);

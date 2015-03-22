@@ -1,0 +1,17 @@
+class PadBehavior extends Sup.Behavior {
+  
+  speed = 0.04
+  
+  awake() {
+    
+  }
+  update() {
+    if (Sup.Input.isKeyDown("UP")) {
+      this.actor.move(new Sup.Math.Vector3(0, this.speed, 0));
+    }
+    if (Sup.Input.isKeyDown("DOWN")) {
+      this.actor.move(new Sup.Math.Vector3(0, -this.speed, 0));
+    }
+  }
+}
+Sup.registerBehavior(PadBehavior);

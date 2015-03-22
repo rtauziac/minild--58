@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "pad",
+    "type": "sprite"
+  },
+  {
+    "id": 5,
+    "name": "ball",
+    "type": "sprite"
+  },
+  {
+    "id": 4,
+    "name": "pad script",
+    "type": "script"
+  },
+  {
+    "id": 6,
+    "name": "ball script",
+    "type": "script"
+  },
+  {
+    "id": 3,
+    "name": "game scene",
+    "type": "scene"
+  },
+  {
+    "id": 2,
+    "name": "main script",
+    "type": "script"
+  }
+]

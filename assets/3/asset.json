@@ -1,0 +1,118 @@
+{
+  "nodes": [
+    {
+      "name": "pad",
+      "children": [],
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "config": {
+            "spriteAssetId": 1,
+            "animationId": null
+          },
+          "id": 0
+        },
+        {
+          "type": "Behavior",
+          "config": {
+            "behaviorName": "PadBehavior"
+          },
+          "id": 1
+        }
+      ],
+      "position": {
+        "x": -2,
+        "y": 0,
+        "z": 0
+      },
+      "orientation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "id": 0
+    },
+    {
+      "name": "ball",
+      "children": [],
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "config": {
+            "spriteAssetId": 5,
+            "animationId": null
+          },
+          "id": 0
+        },
+        {
+          "type": "Behavior",
+          "config": {
+            "behaviorName": "BallBehavior"
+          },
+          "id": 1
+        }
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "orientation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "id": 2
+    },
+    {
+      "name": "camera",
+      "children": [],
+      "components": [
+        {
+          "type": "Camera",
+          "config": {
+            "mode": "perspective",
+            "fov": 45,
+            "orthographicScale": 10,
+            "viewport": {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1
+            }
+          },
+          "id": 0
+        }
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 5
+      },
+      "orientation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "id": 1
+    }
+  ]
+}

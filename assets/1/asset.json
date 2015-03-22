@@ -1,0 +1,15 @@
+{
+  "filtering": "pixelated",
+  "pixelsPerUnit": 500,
+  "framesPerSecond": 10,
+  "alphaTest": 0.1,
+  "grid": {
+    "width": 47,
+    "height": 222
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "animations": []
+}
