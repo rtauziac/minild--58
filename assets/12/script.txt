@@ -16,10 +16,10 @@ class PadComputerBehavior extends Sup.Behavior {
       padComputer.speed = difference / 9;
       
       if (ballPosition.y > position.y) {
-        padComputer.moveUp();
+        padComputer.moveUp(null);
       }
       if (ballPosition.y < position.y) {
-        padComputer.moveDown();
+        padComputer.moveDown(null);
       }
     }
   }

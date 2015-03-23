@@ -8,10 +8,16 @@ var PadType = {
 	Computer: 0x02
 };
 
+var MoveMode = {
+  Arcade: 0x01, // Keyboard UP/DOWN with linear moves
+  Mouse: 0x02   // mouse moves
+}
+
 class PadBehavior extends Sup.Behavior {
   
   side = PadSide.Left;
   type = PadType.Human;
+  moveMode = MoveMode.Mouse;
   size: Vec2 = {x: 0.1, y : 0.52};
   speed = 0.04;
   
@@ -29,11 +35,25 @@ class PadBehavior extends Sup.Behavior {
   update() {
     var position = this.actor.getPosition();
     if (this.type == PadType.Human) {
-      if (Sup.Input.isKeyDown("UP")) {
-        this.moveUp();
+      if (this.moveMode == MoveMode.Arcade) {
+        if (Sup.Input.isKeyDown("UP")) {
+          this.moveUp(null);
+        }
+        if (Sup.Input.isKeyDown("DOWN")) {
+          this.moveDown(null);
+        }
       }
-      if (Sup.Input.isKeyDown("DOWN")) {
-        this.moveDown();
+      else if (this.moveMode == MoveMode.Mouse) {
+        var mousePosition = Sup.Input.getMousePosition();
+        // Sup.log(mousePosition);
+        var padMousePos = mousePosition.y * (Game.entities.grid.size.y / 2);
+        var difference = Math.abs(padMousePos - position.y);
+        if (padMousePos > position.y) {
+          this.moveUp(difference);
+        }
+        else {
+          this.moveDown(difference);
+        }
       }
     }
     
@@ -62,13 +82,19 @@ class PadBehavior extends Sup.Behavior {
     }
   }
 
-  moveUp() {
-    var distance = Math.min(this.speed, (Game.entities.grid.size.y/2) - (this.actor.getPosition().y + (this.size.y / 2)));
+  moveUp(ammount: number) {
+    if (ammount == null) {
+      ammount = this.speed;
+    }
+    var distance = Math.min(ammount, (Game.entities.grid.size.y/2) - (this.actor.getPosition().y + (this.size.y / 2)));
     this.actor.move(new Sup.Math.Vector3(0, distance, 0));
   }
 
-  moveDown() {
-    var distance = Math.max(-this.speed, (-Game.entities.grid.size.y/2) - (this.actor.getPosition().y - (this.size.y / 2)));
+  moveDown(ammount: number) {
+    if (ammount == null) {
+      ammount = this.speed;
+    }
+    var distance = Math.max(-ammount, (-Game.entities.grid.size.y/2) - (this.actor.getPosition().y - (this.size.y / 2)));
         this.actor.move(new Sup.Math.Vector3(0, distance, 0));
   }
 }

@@ -1,1 +1,2 @@
+Sup.Input.setMouseVisible(false);
 Sup.loadScene(Sup.get("game scene", Sup.Scene));
