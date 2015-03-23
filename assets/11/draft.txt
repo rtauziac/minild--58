@@ -1,0 +1,10 @@
+module Game {
+  export var entities = {pad: null,
+                         ball: null,
+                         grid: null};
+}
+
+interface Vec2 {
+  x: number;
+  y: number;
+}

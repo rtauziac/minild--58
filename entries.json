@@ -10,13 +10,23 @@
     "type": "sprite"
   },
   {
-    "id": 4,
+    "id": 11,
+    "name": "globals",
+    "type": "script"
+  },
+  {
+    "id": 9,
     "name": "pad script",
     "type": "script"
   },
   {
-    "id": 6,
+    "id": 10,
     "name": "ball script",
+    "type": "script"
+  },
+  {
+    "id": 7,
+    "name": "grid script",
     "type": "script"
   },
   {

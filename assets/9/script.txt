@@ -1,0 +1,54 @@
+var PadSide = {
+	Left: "left",
+	Right: "right"	
+};
+
+var PadType = {
+	Human: 0x01,
+	Computer: 0x02
+};
+
+class PadBehavior extends Sup.Behavior {
+  
+  side = PadSide.Left;
+  type = PadType.Human;
+  size: Vec2 = {x: 0.1, y : 0.52};
+  speed = 0.04;
+  
+  awake() {
+    Game.entities.pad = this;
+  }
+  update() {
+    if (this.type == PadType.Human) {
+      if (Sup.Input.isKeyDown("UP")) {
+        this.actor.move(new Sup.Math.Vector3(0, this.speed, 0));
+      }
+      if (Sup.Input.isKeyDown("DOWN")) {
+        this.actor.move(new Sup.Math.Vector3(0, -this.speed, 0));
+      }
+    }
+    
+    var ball = Game.entities.ball;
+    var ballPosition = ball.actor.getPosition();
+    var position = this.actor.getPosition();
+    if (this.side == PadSide.Left) {
+      if (ball.velocity.x < 0 &&
+          ballPosition.x - (ball.size.x/2) < position.x + (this.size.x/2) && // inside from right side
+          ballPosition.x + (ball.size.x/2) > position.x - (this.size.x/2) && // inside from left side
+          ballPosition.y - (ball.size.y/2) < position.y + (this.size.y/2) && // inside from top side
+          ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
+        ball.velocity.x = - ball.velocity.x;
+      }
+    }
+    else if (this.side == PadSide.Right) {
+      if (ball.velocity.x > 0 &&
+          ballPosition.x - (ball.size.x/2) < position.x + (this.size.x/2) && // inside from right side
+          ballPosition.x + (ball.size.x/2) > position.x - (this.size.x/2) && // inside from left side
+          ballPosition.y - (ball.size.y/2) < position.y + (this.size.y/2) && // inside from top side
+          ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
+        ball.velocity.x = - ball.velocity.x;
+      }
+    }
+  }
+}
+Sup.registerBehavior(PadBehavior);

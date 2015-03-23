@@ -1,6 +1,36 @@
 {
   "nodes": [
     {
+      "name": "grid",
+      "children": [],
+      "components": [
+        {
+          "type": "Behavior",
+          "config": {
+            "behaviorName": "GridBehavior"
+          },
+          "id": 0
+        }
+      ],
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "orientation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "id": 3
+    },
+    {
       "name": "pad",
       "children": [],
       "components": [
@@ -21,7 +51,7 @@
         }
       ],
       "position": {
-        "x": -2,
+        "x": -1.8,
         "y": 0,
         "z": 0
       },
@@ -84,7 +114,7 @@
           "type": "Camera",
           "config": {
             "mode": "perspective",
-            "fov": 45,
+            "fov": 30,
             "orthographicScale": 10,
             "viewport": {
               "x": 0,

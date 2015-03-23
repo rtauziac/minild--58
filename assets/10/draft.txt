@@ -1,0 +1,19 @@
+class BallBehavior extends Sup.Behavior {
+  
+  size: Vec2 = {x: 0.03, y: 0.03};
+  velocity: Vec2 = {x: -0.03, y: 0.03};
+  
+  awake() {
+    Game.entities.ball = this;
+  }
+  update() {
+    this.actor.move(new Sup.Math.Vector3(this.velocity.x, this.velocity.y, 0));
+  }
+
+  reset() {
+    this.actor.setPosition(new Sup.Math.Vector3(0, 0, 0));
+    this.velocity.x = -0.03;
+    this.velocity.y = 0.03;
+  }
+}
+Sup.registerBehavior(BallBehavior);
