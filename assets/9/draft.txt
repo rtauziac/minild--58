@@ -10,16 +10,18 @@ var PadType = {
 
 var MoveMode = {
   Arcade: 0x01, // Keyboard UP/DOWN with linear moves
-  Mouse: 0x02   // mouse moves
+  Mouse: 0x02, // mouse moves
+  Teleport: 0x03 // pad jumps to positions
 }
 
 class PadBehavior extends Sup.Behavior {
   
   side = PadSide.Left;
   type = PadType.Human;
-  moveMode = MoveMode.Mouse;
+  moveMode = MoveMode.Teleport;
   size: Vec2 = {x: 0.1, y : 0.52};
   speed = 0.04;
+  teleportSpeed = 0.186;
   
   awake() {
     if (Game.entities.pad == null) {
@@ -53,6 +55,23 @@ class PadBehavior extends Sup.Behavior {
         }
         else {
           this.moveDown(difference);
+        }
+      }
+      else if (this.moveMode == MoveMode.Teleport) {
+        if (Sup.Input.wasKeyJustPressed("UP")) {
+          this.speed = this.teleportSpeed;
+        }
+        if (Sup.Input.wasKeyJustPressed("DOWN")) {
+          this.speed = this.teleportSpeed;
+        }
+        
+        if (Sup.Input.isKeyDown("UP")) {
+          this.speed *= 0.8;
+          this.moveUp(null);
+        }
+        if (Sup.Input.isKeyDown("DOWN")) {
+          this.speed *= 0.8;
+          this.moveDown(null);
         }
       }
     }
