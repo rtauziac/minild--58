@@ -20,6 +20,11 @@
     "type": "script"
   },
   {
+    "id": 12,
+    "name": "pad computer script",
+    "type": "script"
+  },
+  {
     "id": 10,
     "name": "ball script",
     "type": "script"

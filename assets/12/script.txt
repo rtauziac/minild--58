@@ -1,0 +1,27 @@
+class PadComputerBehavior extends Sup.Behavior {
+
+  awake() {
+    
+  }
+  
+  update() {
+    var padComputer = Game.entities.cpuPad;
+    var ball = Game.entities.ball;
+    
+    if (ball.velocity.x > 0) {
+      var ballPosition = ball.actor.getPosition();
+      var position = this.actor.getPosition();
+      
+      var difference = Math.abs(ballPosition.y - position.y);
+      padComputer.speed = difference / 9;
+      
+      if (ballPosition.y > position.y) {
+        padComputer.moveUp();
+      }
+      if (ballPosition.y < position.y) {
+        padComputer.moveDown();
+      }
+    }
+  }
+}
+Sup.registerBehavior(PadComputerBehavior);

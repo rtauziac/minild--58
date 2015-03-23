@@ -21,10 +21,12 @@ class GridBehavior extends Sup.Behavior {
       ball.actor.setPosition(ballPosition);
     }
     
+    /*
     // debug
     if (ballPosition.x > this.size.x/3) {
       ball.velocity.x = -ball.velocity.x;
     }
+    */
     
     if (ballPosition.x < -this.size.x/2 || ballPosition.x > this.size.x/2) {
       ball.reset();

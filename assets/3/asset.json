@@ -69,6 +69,51 @@
       "id": 0
     },
     {
+      "name": "pad computer",
+      "children": [],
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "config": {
+            "spriteAssetId": 1,
+            "animationId": null
+          },
+          "id": 0
+        },
+        {
+          "type": "Behavior",
+          "config": {
+            "behaviorName": "PadBehavior"
+          },
+          "id": 1
+        },
+        {
+          "type": "Behavior",
+          "config": {
+            "behaviorName": "PadComputerBehavior"
+          },
+          "id": 2
+        }
+      ],
+      "position": {
+        "x": 1.7999999523162842,
+        "y": 0,
+        "z": 0
+      },
+      "orientation": {
+        "x": 0,
+        "y": 0,
+        "z": 1,
+        "w": 6.123234262925839e-17
+      },
+      "scale": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "id": 4
+    },
+    {
       "name": "ball",
       "children": [],
       "components": [

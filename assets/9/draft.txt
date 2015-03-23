@@ -16,15 +16,24 @@ class PadBehavior extends Sup.Behavior {
   speed = 0.04;
   
   awake() {
-    Game.entities.pad = this;
+    if (Game.entities.pad == null) {
+      Game.entities.pad = this;
+    }
+    else {
+      this.side = PadSide.Right;
+      this.type = PadType.Computer;
+      Game.entities.cpuPad = this;
+    }
   }
+
   update() {
+    var position = this.actor.getPosition();
     if (this.type == PadType.Human) {
       if (Sup.Input.isKeyDown("UP")) {
-        this.actor.move(new Sup.Math.Vector3(0, this.speed, 0));
+        this.moveUp();
       }
       if (Sup.Input.isKeyDown("DOWN")) {
-        this.actor.move(new Sup.Math.Vector3(0, -this.speed, 0));
+        this.moveDown();
       }
     }
     
@@ -38,6 +47,7 @@ class PadBehavior extends Sup.Behavior {
           ballPosition.y - (ball.size.y/2) < position.y + (this.size.y/2) && // inside from top side
           ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
         ball.velocity.x = - ball.velocity.x;
+        ball.velocity.y -= (position.y - ballPosition.y) * 0.05;
       }
     }
     else if (this.side == PadSide.Right) {
@@ -46,9 +56,20 @@ class PadBehavior extends Sup.Behavior {
           ballPosition.x + (ball.size.x/2) > position.x - (this.size.x/2) && // inside from left side
           ballPosition.y - (ball.size.y/2) < position.y + (this.size.y/2) && // inside from top side
           ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
-        ball.velocity.x = - ball.velocity.x;
+        ball.velocity.x = - ball.velocity.x * 1.1;
+        ball.velocity.y -= (position.y - ballPosition.y) * 0.05;
       }
     }
+  }
+
+  moveUp() {
+    var distance = Math.min(this.speed, (Game.entities.grid.size.y/2) - (this.actor.getPosition().y + (this.size.y / 2)));
+    this.actor.move(new Sup.Math.Vector3(0, distance, 0));
+  }
+
+  moveDown() {
+    var distance = Math.max(-this.speed, (-Game.entities.grid.size.y/2) - (this.actor.getPosition().y - (this.size.y / 2)));
+        this.actor.move(new Sup.Math.Vector3(0, distance, 0));
   }
 }
 Sup.registerBehavior(PadBehavior);

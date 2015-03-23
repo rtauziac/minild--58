@@ -1,5 +1,6 @@
 module Game {
   export var entities = {pad: null,
+                         cpuPad: null,
                          ball: null,
                          grid: null};
 }
