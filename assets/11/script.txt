@@ -3,6 +3,7 @@ module Game {
                          cpuPad: null,
                          ball: null,
                          grid: null};
+  export var replay: number = 1;
 }
 
 interface Vec2 {
