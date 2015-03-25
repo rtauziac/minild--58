@@ -1,19 +1,59 @@
 class BallBehavior extends Sup.Behavior {
   
   size: Vec2 = {x: 0.05, y: 0.05};
-  velocity: Vec2 = {x: -0.03, y: 0.03};
+  velocityData: VelocityDataVec2 = {angle: 3.4, magnitude: 0.04};
+  velocity: Vec2 = {x: -0.01, y: 0};
+
+  rotationVector = Sup.Math.Vector3.forward()
+  rotationSpeed = 0.02;
   
   awake() {
     Game.entities.ball = this;
+    
+    /*var angles = [0, Math.PI/2, -Math.PI/2, 0.1, 0.2 ,0.3, 1, -0.1, -0.2, -0.3, -1, 0];
+    
+    for (var angle in angles) {
+      Sup.log("" + angles[angle] + " : " + this.bounceWithNormalAngle(angles[angle]));
+    }*/
+    this.setVelocityWithData(this.velocityData.angle, this.velocityData.magnitude);
   }
+  
   update() {
     this.actor.move(new Sup.Math.Vector3(this.velocity.x * Game.replay, this.velocity.y * Game.replay, 0));
+    this.actor.rotate(new Sup.Math.Quaternion().setFromAxisAngle(this.rotationVector, this.rotationSpeed * Game.replay));
   }
 
   reset() {
-    this.actor.setPosition(new Sup.Math.Vector3(0, 0, 0));
-    this.velocity.x = -0.03;
-    this.velocity.y = 0.03;
+    this.actor.setPosition(new Sup.Math.Vector3(0, Game.entities.grid.size.y/2 - Math.random()*Game.entities.grid.size.y, 0));
+    this.setVelocityWithData(Math.PI*2*Math.random(), 0.04);
+    this.changeRotation();
+  }
+
+  setVelocityWithData(angle: number, magnitude: number) {
+    this.velocityData.angle = angle % (2*Math.PI);
+    this.velocityData.magnitude = magnitude;
+    this.velocity.x = Math.cos(angle) * magnitude;
+    this.velocity.y = Math.sin(angle) * magnitude;
+  }
+
+  bounceWithNormalAngle(angle: number) {
+    var newAngle;
+    if (this.velocity.y > 0 && this.velocity.x > 0 && false) {
+      newAngle = angle*2 + this.velocityData.angle + Math.PI;
+    }
+    else {
+      newAngle = angle*2 - this.velocityData.angle + Math.PI;
+    }
+    //Sup.log("Bounce: " + angle + " " + this.velocityData.angle + " = " + newAngle);
+    //var newAngle = Math.PI - angle + this.velocityData.angle;
+    
+    this.setVelocityWithData(newAngle, this.velocityData.magnitude);
+    this.changeRotation();
+  }
+
+  changeRotation() {
+    this.rotationVector = new Sup.Math.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
+    this.rotationSpeed = Math.random() * 0.1745;
   }
 }
 Sup.registerBehavior(BallBehavior);

@@ -32,16 +32,40 @@
     },
     {
       "name": "pad",
-      "children": [],
-      "components": [
+      "children": [
         {
-          "type": "SpriteRenderer",
-          "config": {
-            "spriteAssetId": 1,
-            "animationId": null
+          "name": "pad model",
+          "children": [],
+          "components": [
+            {
+              "type": "ModelRenderer",
+              "config": {
+                "modelAssetId": 13,
+                "animationId": null
+              },
+              "id": 0
+            }
+          ],
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
           },
-          "id": 0
-        },
+          "orientation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "id": 5
+        }
+      ],
+      "components": [
         {
           "type": "Behavior",
           "config": {
@@ -70,16 +94,40 @@
     },
     {
       "name": "pad computer",
-      "children": [],
-      "components": [
+      "children": [
         {
-          "type": "SpriteRenderer",
-          "config": {
-            "spriteAssetId": 1,
-            "animationId": null
+          "name": "pad model",
+          "children": [],
+          "components": [
+            {
+              "type": "ModelRenderer",
+              "config": {
+                "modelAssetId": 14,
+                "animationId": null
+              },
+              "id": 0
+            }
+          ],
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
           },
-          "id": 0
-        },
+          "orientation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "id": 6
+        }
+      ],
+      "components": [
         {
           "type": "Behavior",
           "config": {
@@ -118,19 +166,19 @@
       "children": [],
       "components": [
         {
-          "type": "SpriteRenderer",
-          "config": {
-            "spriteAssetId": 5,
-            "animationId": null
-          },
-          "id": 0
-        },
-        {
           "type": "Behavior",
           "config": {
             "behaviorName": "BallBehavior"
           },
           "id": 1
+        },
+        {
+          "type": "ModelRenderer",
+          "config": {
+            "modelAssetId": 15,
+            "animationId": null
+          },
+          "id": 2
         }
       ],
       "position": {
@@ -145,9 +193,9 @@
         "w": 1
       },
       "scale": {
-        "x": 1,
-        "y": 1,
-        "z": 1
+        "x": 0.3,
+        "y": 0.3,
+        "z": 0.3
       },
       "id": 2
     },

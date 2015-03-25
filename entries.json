@@ -1,43 +1,70 @@
 [
   {
-    "id": 1,
-    "name": "pad",
-    "type": "sprite"
-  },
-  {
-    "id": 5,
-    "name": "ball",
-    "type": "sprite"
-  },
-  {
     "id": 11,
     "name": "globals",
     "type": "script"
   },
   {
-    "id": 9,
-    "name": "pad script",
-    "type": "script"
-  },
-  {
-    "id": 12,
-    "name": "pad computer script",
-    "type": "script"
-  },
-  {
-    "id": 10,
-    "name": "ball script",
-    "type": "script"
-  },
-  {
-    "id": 7,
-    "name": "grid script",
-    "type": "script"
-  },
-  {
-    "id": 3,
-    "name": "game scene",
-    "type": "scene"
+    "id": 17,
+    "name": "Game scene",
+    "type": null,
+    "children": [
+      {
+        "id": 13,
+        "name": "pad3D",
+        "type": "model"
+      },
+      {
+        "id": 14,
+        "name": "pad3D 2",
+        "type": "model"
+      },
+      {
+        "id": 15,
+        "name": "ball3D",
+        "type": "model"
+      },
+      {
+        "id": 16,
+        "name": "grid3D",
+        "type": "model"
+      },
+      {
+        "id": 1,
+        "name": "pad",
+        "type": "sprite"
+      },
+      {
+        "id": 5,
+        "name": "ball",
+        "type": "sprite"
+      },
+      {
+        "id": 9,
+        "name": "pad script",
+        "type": "script"
+      },
+      {
+        "id": 12,
+        "name": "pad computer script",
+        "type": "script"
+      },
+      {
+        "id": 10,
+        "name": "ball script",
+        "type": "script"
+      },
+      {
+        "id": 7,
+        "name": "grid script",
+        "type": "script"
+      },
+      {
+        "id": 3,
+        "name": "game scene",
+        "type": "scene"
+      }
+    ]
   },
   {
     "id": 2,

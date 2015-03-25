@@ -1,6 +1,6 @@
 class GridBehavior extends Sup.Behavior {
   
-  size: Vec2 = {x: 5, y: 2};
+  size: Vec2 = {x: 5, y: 2.5};
   
   awake() {
     Game.entities.grid = this;
@@ -11,14 +11,16 @@ class GridBehavior extends Sup.Behavior {
     var gridHalfHeight = this.size.y / 2;
     
     if (ballPosition.y < -gridHalfHeight) {
-      ball.velocity.y = -ball.velocity.y;
+      /*ball.velocity.y = -ball.velocity.y;
       ballPosition.y += -ballPosition.y - gridHalfHeight;
-      ball.actor.setPosition(ballPosition);
+      ball.actor.setPosition(ballPosition);*/
+      ball.bounceWithNormalAngle(Math.PI/2);
     }
     if (ballPosition.y > gridHalfHeight) {
-      ball.velocity.y = -ball.velocity.y;
+      /*ball.velocity.y = -ball.velocity.y;
       ballPosition.y -= ballPosition.y - gridHalfHeight;
-      ball.actor.setPosition(ballPosition);
+      ball.actor.setPosition(ballPosition);*/
+      ball.bounceWithNormalAngle(-Math.PI/2);
     }
     
     if (ballPosition.x < -this.size.x/2 || ballPosition.x > this.size.x/2) {

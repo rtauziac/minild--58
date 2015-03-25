@@ -1,0 +1,11 @@
+{
+  "attributes": [
+    "position",
+    "uv"
+  ],
+  "bones": null,
+  "maps": [
+    "diffuse"
+  ],
+  "animations": []
+}

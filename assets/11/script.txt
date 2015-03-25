@@ -10,3 +10,8 @@ interface Vec2 {
   x: number;
   y: number;
 }
+
+interface VelocityDataVec2 {
+  angle: number; // radians
+  magnitude: number;
+}
