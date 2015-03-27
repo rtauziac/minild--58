@@ -1,0 +1,23 @@
+class CameraBehavior extends Sup.Behavior {
+  
+  euler = new Sup.Math.Vector3(0, 0, 0);
+  
+  awake() {
+    
+  }
+  
+  update() {
+    var euler = this.actor.getLocalEulerAngles();
+    var ball = Game.entities.ball;
+    var ballPosition = ball.actor.getPosition();
+    
+    euler.y = -ballPosition.x / 40;
+    euler.x = ballPosition.y / 100;
+    
+    this.euler.x += (euler.x - this.euler.x) * 0.07;
+    this.euler.y += (euler.y - this.euler.y) * 0.05;
+    
+    this.actor.setLocalEulerAngles(this.euler);
+  }
+}
+Sup.registerBehavior(CameraBehavior);

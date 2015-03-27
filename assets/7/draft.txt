@@ -1,6 +1,6 @@
 class GridBehavior extends Sup.Behavior {
   
-  size: Vec2 = {x: 5, y: 2.5};
+  size: Vec2 = {x: 7, y: 2.3};
   
   awake() {
     Game.entities.grid = this;
@@ -10,22 +10,39 @@ class GridBehavior extends Sup.Behavior {
     var ballPosition = ball.actor.getPosition();
     var gridHalfHeight = this.size.y / 2;
     
-    if (ballPosition.y < -gridHalfHeight) {
-      /*ball.velocity.y = -ball.velocity.y;
-      ballPosition.y += -ballPosition.y - gridHalfHeight;
-      ball.actor.setPosition(ballPosition);*/
-      ball.bounceWithNormalAngle(Math.PI/2);
-    }
-    if (ballPosition.y > gridHalfHeight) {
-      /*ball.velocity.y = -ball.velocity.y;
-      ballPosition.y -= ballPosition.y - gridHalfHeight;
-      ball.actor.setPosition(ballPosition);*/
-      ball.bounceWithNormalAngle(-Math.PI/2);
+    var angleCompensate = 0;
+    
+    if (Math.abs(ball.velocity.y) > Math.abs(ball.velocity.x)) {
+      if (ball.velocity.x > 0) {
+        angleCompensate = -0.02;
+      }
+      else {
+        angleCompensate = 0.02;
+      }
     }
     
-    if (ballPosition.x < -this.size.x/2 || ballPosition.x > this.size.x/2) {
+    if (Math.abs(ballPosition.x) < 6)
+    if (ball.velocity.y < 0 && ballPosition.y < -gridHalfHeight) {
+      ball.bounceWithNormalAngle(Math.PI/2 + angleCompensate);
+    }
+    if (ball.velocity.y > 0 && ballPosition.y > gridHalfHeight) {
+      ball.bounceWithNormalAngle(-Math.PI/2 - angleCompensate);
+    }
+    
+    if (Math.abs(ballPosition.x) > this.size.x / 4) {
+      if (ball.velocity.y > 0 && ball.velocity.x < 0 || ball.velocity.y < 0 && ball.velocity.x > 0) {
+        ball.setVelocityWithData(ball.velocityData.angle+0.01, ball.velocityData.magnitude);
+      }
+      else {
+        ball.setVelocityWithData(ball.velocityData.angle-0.01, ball.velocityData.magnitude);
+      }
+    }
+    
+    if (Math.abs(ballPosition.x) > this.size.x/2) {
       ball.reset();
     }
+    
+    //Sup.log(ball.velocityData.angle%Math.PI*2);
     
     if (Sup.Input.isKeyDown("A")) {
       Game.replay *= 1.02;

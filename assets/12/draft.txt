@@ -13,12 +13,12 @@ class PadComputerBehavior extends Sup.Behavior {
       var position = this.actor.getPosition();
       
       var difference = Math.abs(ballPosition.y - position.y);
-      padComputer.speed = difference / 9;
+      padComputer.speed = difference / 8;
       
-      if (ballPosition.y > position.y) {
+      if (ballPosition.y + (ball.velocity.y*3) > position.y) {
         padComputer.moveUp(null);
       }
-      if (ballPosition.y < position.y) {
+      if (ballPosition.y + (ball.velocity.y*3) < position.y) {
         padComputer.moveDown(null);
       }
     }

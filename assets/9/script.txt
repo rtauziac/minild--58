@@ -18,11 +18,11 @@ class PadBehavior extends Sup.Behavior {
   
   side = PadSide.Left;
   type = PadType.Human;
-  moveMode = MoveMode.Arcade;
-  size: Vec2 = {x: 0.1, y : 0.54};
+  moveMode = MoveMode.Mouse;
+  size: Vec2 = {x: 0.1, y : 0.58};
   speed = 0.04;
   teleportSpeed = 0.186;
-  angularSpeed = 0;
+  XangularSpeed = 0;
   
   awake() {
     if (Game.entities.pad == null) {
@@ -86,9 +86,7 @@ class PadBehavior extends Sup.Behavior {
           ballPosition.x + (ball.size.x/2) > position.x - (this.size.x/2) && // inside from left side
           ballPosition.y - (ball.size.y/2) < position.y + (this.size.y/2) && // inside from top side
           ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
-        this.angularSpeed += ball.velocity.x * 2 * Game.replay;
-        //ball.velocity.x = - ball.velocity.x;
-        //ball.velocity.y -= (position.y - ballPosition.y) * 0.05; 
+        this.XangularSpeed += ball.velocity.x * 4 * Game.replay;
         ball.bounceWithNormalAngle(0 - ((position.y - ballPosition.y) * 0.5));
         ball.changeRotation();
       }
@@ -99,9 +97,7 @@ class PadBehavior extends Sup.Behavior {
           ballPosition.x + (ball.size.x/2) > position.x - (this.size.x/2) && // inside from left side
           ballPosition.y - (ball.size.y/2) < position.y + (this.size.y/2) && // inside from top side
           ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
-        this.angularSpeed += ball.velocity.x * 2 * Game.replay;
-        //ball.velocity.x = - ball.velocity.x * 1.1;
-        //ball.velocity.y -= (position.y - ballPosition.y) * 0.05;
+        this.XangularSpeed += ball.velocity.x * 4 * Game.replay;
         ball.bounceWithNormalAngle(Math.PI + ((position.y - ballPosition.y) * 0.5));
         ball.changeRotation();
       }
@@ -109,16 +105,15 @@ class PadBehavior extends Sup.Behavior {
     
     var euler = this.actor.getLocalEulerAngles();
     if (euler.y > 0) {
-      this.angularSpeed -= Math.min(0.01, euler.y) * Game.replay;
-      this.angularSpeed *= 1 - (0.04 * Game.replay) * Game.replay;
+      this.XangularSpeed -= Math.min(0.01, euler.y) * Game.replay;
+      this.XangularSpeed *= 1 - (0.04 * Game.replay) * Game.replay;
     }
     else if (euler.y < 0) {
-      this.angularSpeed += Math.min(0.01, -euler.y) * Game.replay;
-      this.angularSpeed *= 1 - (0.04 * Game.replay) * Game.replay;
+      this.XangularSpeed += Math.min(0.01, -euler.y) * Game.replay;
+      this.XangularSpeed *= 1 - (0.04 * Game.replay) * Game.replay;
     }
     
-    
-    euler.y += this.angularSpeed;
+    euler.y += this.XangularSpeed;
     this.actor.setLocalEulerAngles(euler);
   }
 
