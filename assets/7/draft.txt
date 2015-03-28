@@ -1,6 +1,7 @@
 class GridBehavior extends Sup.Behavior {
   
   size: Vec2 = {x: 7, y: 2.3};
+  soundBounce = new Sup.Audio.SoundInstance(Sup.get("Game scene/bounce wall", Sup.Sound));
   
   awake() {
     Game.entities.grid = this;
@@ -24,9 +25,11 @@ class GridBehavior extends Sup.Behavior {
     if (Math.abs(ballPosition.x) < 6)
     if (ball.velocity.y < 0 && ballPosition.y < -gridHalfHeight) {
       ball.bounceWithNormalAngle(Math.PI/2 + angleCompensate);
+      this.soundBounce.play();
     }
     if (ball.velocity.y > 0 && ballPosition.y > gridHalfHeight) {
       ball.bounceWithNormalAngle(-Math.PI/2 - angleCompensate);
+      this.soundBounce.play();
     }
     
     if (Math.abs(ballPosition.x) > this.size.x / 4) {
@@ -38,8 +41,16 @@ class GridBehavior extends Sup.Behavior {
       }
     }
     
-    if (Math.abs(ballPosition.x) > this.size.x/2) {
-      ball.reset();
+    if (ball.state == BallState.Play && Math.abs(ballPosition.x) > this.size.x/2) {
+      Game.entities.cpuPad.type = PadType.Computer;
+      ball.kill();
+      
+      if (ballPosition.x < 0) { // score right player
+        Game.score[1] += 1;
+      }
+      else {
+        Game.score[0] += 1;
+      }
     }
     
     //Sup.log(ball.velocityData.angle%Math.PI*2);

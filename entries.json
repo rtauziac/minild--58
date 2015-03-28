@@ -35,14 +35,29 @@
         "type": "model"
       },
       {
-        "id": 1,
-        "name": "pad",
-        "type": "sprite"
+        "id": 22,
+        "name": "bounce wall",
+        "type": "sound"
       },
       {
-        "id": 5,
-        "name": "ball",
-        "type": "sprite"
+        "id": 23,
+        "name": "bounce pad",
+        "type": "sound"
+      },
+      {
+        "id": 24,
+        "name": "bounce pad2",
+        "type": "sound"
+      },
+      {
+        "id": 25,
+        "name": "spawn",
+        "type": "sound"
+      },
+      {
+        "id": 26,
+        "name": "die",
+        "type": "sound"
       },
       {
         "id": 9,
@@ -67,6 +82,11 @@
       {
         "id": 19,
         "name": "camera script",
+        "type": "script"
+      },
+      {
+        "id": 21,
+        "name": "camera rotation script",
         "type": "script"
       },
       {

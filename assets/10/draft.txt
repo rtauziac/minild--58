@@ -1,12 +1,14 @@
 var BallState = {
   Spawn: 0x01, // state when reseted
-  Play: 0x02
+  Play: 0x02,
+  Dead: 0x03, // being killed
+  Idle: 0x04 // just after respawn
 }
 
 class BallBehavior extends Sup.Behavior {
   
-  state = BallState.Spawn;
-  resetSpeed = 0.02;
+  state = BallState.Idle;
+  resetSpeed = 0.03;
   size: Vec2 = {x: 0.05, y: 0.05};
   velocityData: VelocityDataVec2 = {angle: Math.PI/1.5, magnitude: 0};
   velocity: Vec2 = {x: -0.01, y: 0};
@@ -14,23 +16,42 @@ class BallBehavior extends Sup.Behavior {
   rotationVector = Sup.Math.Vector3.forward()
   rotationSpeed = 0.02;
 
-  spawnDuration = 80;
+  spawnDuration = 90;
   spawnCurrentDuration = 0;
+
+  soundSpawn = new Sup.Audio.SoundInstance(Sup.get("Game scene/spawn", Sup.Sound));
+  soundDie = new Sup.Audio.SoundInstance(Sup.get("Game scene/die", Sup.Sound));
   
   awake() {
     Game.entities.ball = this;
-    
+    this.actor.setLocalScale(new Sup.Math.Vector3(0, 0, 0));
     this.setVelocityWithData(this.velocityData.angle, this.velocityData.magnitude);
   }
   
   update() {
-    if (this.state == BallState.Spawn) {
+    if (this.state == BallState.Idle) {
+      if (Sup.Input.isMouseButtonDown(0)) {
+        this.state = BallState.Spawn;
+        this.soundSpawn.play();
+      }
+    }
+    else if (this.state == BallState.Spawn) {
       this.spawnCurrentDuration += 1;
       var factor = this.spawnCurrentDuration / this.spawnDuration;
+      factor = factor*factor;
       this.actor.setLocalScale(new Sup.Math.Vector3(0.3*factor, 0.3*factor, 0.3*factor));
       this.setVelocityWithData(this.velocityData.angle, this.resetSpeed*factor);
       if (this.spawnCurrentDuration >= this.spawnDuration) {
         this.state = BallState.Play;
+      }
+    }
+    else if (this.state == BallState.Dead) {
+      var localScale = this.actor.getLocalScale();
+      localScale.set(localScale.x*0.95, localScale.y*0.95, localScale.z*0.95);
+      this.actor.setLocalScale(localScale);
+      this.setVelocityWithData(this.velocityData.angle, this.velocityData.magnitude*0.95);
+      if (localScale.x < 0.01) {
+        this.reset();
       }
     }
     
@@ -43,7 +64,7 @@ class BallBehavior extends Sup.Behavior {
     this.actor.setPosition(new Sup.Math.Vector3(0, Game.entities.grid.size.y/2 - Math.random()*Game.entities.grid.size.y, 0));
     this.setVelocityWithData(Math.PI*2*Math.random(), 0);
     this.changeRotation();
-    this.state = BallState.Spawn;
+    this.state = BallState.Idle;
     this.spawnCurrentDuration = 0;
     this.actor.setLocalScale(new Sup.Math.Vector3(0, 0, 0));
   }
@@ -80,6 +101,11 @@ class BallBehavior extends Sup.Behavior {
   changeRotation() {
     this.rotationVector = new Sup.Math.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
     this.rotationSpeed = Math.random() * 0.1745;
+  }
+
+  kill() {
+    this.state = BallState.Dead;
+    this.soundDie.play();
   }
 }
 Sup.registerBehavior(BallBehavior);

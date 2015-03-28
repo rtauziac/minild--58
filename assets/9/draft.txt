@@ -20,18 +20,22 @@ class PadBehavior extends Sup.Behavior {
   type = PadType.Human;
   moveMode = MoveMode.Mouse;
   size: Vec2 = {x: 0.1, y : 0.58};
-  speed = 0.04;
+  speed = 0.05;
   teleportSpeed = 0.186;
   XangularSpeed = 0;
+  bounceSound: Sup.Audio.SoundInstance;
   
   awake() {
     if (Game.entities.pad == null) {
       Game.entities.pad = this;
+      this.bounceSound = new Sup.Audio.SoundInstance(Sup.get("Game scene/bounce pad", Sup.Sound));
     }
     else {
       this.side = PadSide.Right;
       this.type = PadType.Computer;
+      this.moveMode = MoveMode.Arcade;
       Game.entities.cpuPad = this;
+      this.bounceSound = new Sup.Audio.SoundInstance(Sup.get("Game scene/bounce pad2", Sup.Sound));
     }
   }
 
@@ -88,7 +92,7 @@ class PadBehavior extends Sup.Behavior {
           ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
         this.XangularSpeed += ball.velocity.x * 4 * Game.replay;
         ball.bounceWithNormalAngle(0 - ((position.y - ballPosition.y) * 0.5));
-        ball.changeRotation();
+        this.bounceSound.play();
       }
     }
     else if (this.side == PadSide.Right) {
@@ -99,7 +103,7 @@ class PadBehavior extends Sup.Behavior {
           ballPosition.y + (ball.size.y/2) > position.y - (this.size.y/2)) { // inside from bottom side
         this.XangularSpeed += ball.velocity.x * 4 * Game.replay;
         ball.bounceWithNormalAngle(Math.PI + ((position.y - ballPosition.y) * 0.5));
-        ball.changeRotation();
+        this.bounceSound.play();
       }
     }
     

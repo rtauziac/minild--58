@@ -4,6 +4,7 @@ module Game {
                          ball: null,
                          grid: null};
   export var replay: number = 1;
+  export var score = [0, 0];
 }
 
 interface Vec2 {

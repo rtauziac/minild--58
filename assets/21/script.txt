@@ -1,0 +1,20 @@
+class CameraRotateBehavior extends Sup.Behavior {
+  
+  euler = new Sup.Math.Vector3(0, 0, 0);
+  
+  awake() {
+    
+  }
+  update() {
+    var euler = this.actor.getLocalEulerAngles();
+    var score = Game.score;
+    
+    euler.y = Math.min(0.4, Math.max(-0.4, (score[0] - score[1]) * 0.1));
+    
+    this.euler.y += (euler.y - this.euler.y) * 0.07;
+    this.euler.x = -this.euler.y * 0.2;
+    
+    this.actor.setLocalEulerAngles(this.euler);
+  }
+}
+Sup.registerBehavior(CameraRotateBehavior);
